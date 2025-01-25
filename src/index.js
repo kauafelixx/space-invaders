@@ -57,22 +57,6 @@ addEventListener("keyup", (event) => {
     
 });
 
-btnLeft.addEventListener('touchstart', () => {
-    keys.left = true;
-    console.log('Botão esquerdo pressionado', keys);
-  });
-  btnLeft.addEventListener('touchend', () => {
-    keys.left = false;
-    console.log('Botão esquerdo liberado', keys);
-  });
-  btnRight.addEventListener('touchstart', () => {
-    keys.right = true;
-    console.log('Botão direito pressionado', keys);
-  });
-  btnRight.addEventListener('touchend', () => {
-    keys.right = false;
-    console.log('Botão direito liberado', keys);
-  });
 
 
 
