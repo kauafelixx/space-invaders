@@ -1,5 +1,7 @@
+import Invader from "./classes/Invader.js";
 import Player from "./classes/Player.js";
 import Projectile from "./classes/Projectile.js";
+
 
 const canvas=document.querySelector('canvas');
 const ctx=canvas.getContext('2d');
@@ -11,19 +13,17 @@ canvas.height=innerHeight;
 
 
 const  player=new Player(canvas.width, canvas.height);
+const playerProjectile=[]
 
-const playerProjectile=[
-
-]
-
+const invader= new Invader({x:150, y:150});
 
 
 const keys ={
 left: false,
 rigth: false,
 shoot:{
-    apertada:false, 
-    solto: true,
+    pressed:false, 
+    released: true,
 }
 }
 
@@ -34,16 +34,24 @@ const drawProjectile=()=>{
     })
 }
 
+const clearProjectile= ()=>{
+    playerProjectile.forEach((Projectile, index) =>{
+        if(Projectile.position.y <=0){
+            playerProjectile.splice(index, 1)
+        }
+    })
+}
+
 const btnLeft = document.querySelector('.btm');
 const btnRight = document.querySelector('.btm2');
 
 const gameLoop= ()  =>{
 ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+invader.draw(ctx);
+
 drawProjectile();
-
-
-
-
+clearProjectile()
 
 ctx.save();
 
@@ -51,8 +59,9 @@ ctx.translate(player.position.x + player.width/2,
     player.position.y + player.height/2
 );
 
-if(keys.shoot.apertada ){
- player.shoot(playerProjectile);
+if(keys.shoot.pressed && keys.shoot.released ){
+    player.shoot(playerProjectile);
+keys.shoot.released=false;
 
 }
 
@@ -94,7 +103,7 @@ addEventListener("keydown", (event) => {
 
     if(key === "e" || key==="E")  keys.rigth=true
 
-if(key ==="enter") keys.shoot.apertada=true
+if(key ==="enter") keys.shoot.pressed=true
 });
 
 addEventListener("keyup", (event) => {
@@ -106,8 +115,8 @@ addEventListener("keyup", (event) => {
     if(key === "e" || key==="E")    keys.rigth=false;
 
     if(key ==="enter") {
-        keys.shoot.apertada=false;
-        keys.shoot.solto=true;
+        keys.shoot.pressed=false;
+        keys.shoot.released=true;
     }
     
 });

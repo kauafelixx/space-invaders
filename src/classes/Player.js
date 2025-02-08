@@ -1,4 +1,4 @@
-import { fogo, framecaunter, imagem } from "../utils/cosntantes.js";
+import { FIRE, framecaunter, IMAGE } from "../utils/cosntantes.js";
 import Projectile from "./Projectile.js";
 
 class Player {
@@ -11,8 +11,8 @@ class Player {
             y: canvasHeight - this.height - 50,
         };
 
-        this.image = this.getImage(imagem);
-        this.fogo = this.getImage(fogo);
+        this.image = this.getImage(IMAGE);
+        this.fogo = this.getImage(FIRE);
 
         this.sx=0;
         this.frameCaunter=framecaunter;
